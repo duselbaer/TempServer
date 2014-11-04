@@ -1,6 +1,8 @@
 #include "NRF24L01/v1/NRF24L01.hpp"
 #include "NRF24L01/v1/driver/Raspberry.hpp"
 
+#include "RF24Network.h"
+
 #include <iostream>
 
 int main(int, char**)
@@ -13,6 +15,14 @@ int main(int, char**)
   NRF    nrf(nrf_hw);
 
   nrf.init();
+  std::cout << "Device initialized" << std::endl;
 
-  std::cout << "Server started" << "\n";
+  RF24Network<NRF> network(nrf);
+  network.begin(1, 0);
+  while (1)
+  {
+    network.update();
+
+
+  }
 }
